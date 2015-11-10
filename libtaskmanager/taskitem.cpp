@@ -620,10 +620,10 @@ QUrl TaskItem::launcherUrlFromTask(GroupManager *groupManager, Task *task, Start
 
     if (task && !(task->classClass().isEmpty() && task->className().isEmpty())) {
 
-        // For KCModules, if we matched on window class, etc, we would end up matching to kcmshell4 - but we are more than likely
+        // For KCModules, if we matched on window class, etc, we would end up matching to kcmshell4 or kcmshell5 - but we are more than likely
         // interested in the actual control module. Therefore we obtain this via the commandline. This commandline may contain
         // "kdeinit4:" or "[kdeinit]", so we remove these first.
-        if ("Kcmshell4" == task->classClass()) {
+        if ("Kcmshell4" == task->classClass() || QLatin1String("kcmshell5") == task->classClass()) {
             launcherUrl = getServiceLauncherUrl(task->pid(), QStringLiteral("KCModule"), QStringList() << QStringLiteral("kdeinit4:") << QStringLiteral("[kdeinit]"));
             if (!launcherUrl.isEmpty()) {
                 return launcherUrl;
